@@ -10,8 +10,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './general.css';
 import './animations.css';
 
-
-
+/*
+  This the top-right image with a link to a social network
+*/
 class SocialTag extends React.Component {
   render() {
     let lala = require(`${this.props.source}`);
@@ -250,8 +251,8 @@ class Contact extends React.Component {
               />
 
               <p className="contactInfo">
-                email: dimitrispl96@gmail.com <br/>
-                tel: this_is_a_phone <br/>
+                email: ieeeteithe@gmail.com <br/>
+                tel: this_is_a_phone_number <br/>
                 facebook: https://facebook.com
               </p>
             </div>
@@ -261,11 +262,13 @@ class Contact extends React.Component {
   }
 }
 
+// main component contains everything
 class Page extends React.Component {
-
+  // initialize the component
   constructor() {
     super();
     this.state = {
+      // relate pages with indexes
       pageIndexes: {
         home: 1,
         about: 2,
@@ -273,6 +276,7 @@ class Page extends React.Component {
         blog: 4,
         contact: 5
       },
+      // declare the social tags
       social: {
         facebook: {
           name: 'facebook',
@@ -290,16 +294,20 @@ class Page extends React.Component {
           source: './img/github_logo.png'
         }
       },
+      //  save what page is open by index.
       openPage: 1
     };
   }
 
+  // this function is being used to change the openPage at status.
+  // by changing that status the the page renders the requested page
   change_page(pageNum) {
     this.setState ({
       openPage: pageNum
     });
   }
 
+  // this function decides which page will be shown by it's parameter.
   printPage(pageNum) {
     switch (this.state.openPage) {
       case 1: return <Home />;
@@ -309,14 +317,20 @@ class Page extends React.Component {
     }
   }
 
+  // this function renders the component
   render() {
     return (
       <div>
+        {/*  print the navigation bar. pass the pageIndexes, socialTags as parameters.
+            by passing the change_page  function will allow to lower hierarchycaly components to
+            change the <Page /> component status.
+         */}
         <Navigation
           buttons={this.state.pageIndexes}
-          onClick={(num) => this.change_page(num)}
           social={this.state.social}
+          onClick={(num) => this.change_page(num)}
           />
+        {/* Print the page that is at <Page /> state.openPage */}
         {this.printPage(this.state.openPage)}
       </div>
     );
